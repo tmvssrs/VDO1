@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Javascript algoritme</title>
+
+    <!-- scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="javascript/general.js"></script>
+
+
+</head>
+<body>
+
+<span id="resultaat1"></span>
+
+<script>
+
+
+    function bubble_Sort(a)
+    {
+        var swapp;
+        var n = a.length-1;
+        var x=a;
+        do {
+            swapp = false;
+            for (var i=0; i < n; i++)
+            {
+                if (x[i].length > x[i+1].length)
+                {
+                    var temp = x[i];
+                    x[i] = x[i+1];
+                    x[i+1] = temp;
+                    swapp = true;
+                }
+            }
+            n--;
+        } while (swapp);
+        return x;
+    }
+
+
+
+
+    document.getElementById("resultaat1").innerHTML = bubble_Sort(["aap","kiekeboe","bubble","b"]);;
+</script>
+</body>
