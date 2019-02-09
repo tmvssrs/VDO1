@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UFT-8">
+        <link rel="stylesheet" href="css/opmaak.css">
+        <title>Test</title>
+        
+    </head>
+    <body>
+        <button type="button">Klik hier</button>
+        <div class="example"></div>
+        <div class="solution"></div>
+    </body>
+    
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous">
+    </script>
+    <script>
+        
+        $(document).ready(function(){
+            
+            let List = ['aap', 'kiekeboe', 'blabla', 'hallo', 'b'];
+            let orderedList = [];
+            $('.example').text(List);
+                
+            $("button").click(function() {
+
+            let arrayLength = List.length;
+            for (let i = 0; i < arrayLength; i++) {
+            var lengthListItem = List[i].length;
+                if(lengthListItem > List[i].length){
+                    orderedList.push(lengthListItem);
+                }else{
+                    orderedList.splice(0, 0, lengthListItem);
+                }
+            }
+                console.log(orderedList);
+            });
+            
+        });
+    </script>
+    
+</html>
