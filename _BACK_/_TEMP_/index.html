@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="css/opmaak.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <title>Puntentabel</title>
+    </head>
+    <body>
+        <table id="puntentabel">
+            <button onclick="addCol()" id="addcol">add column</button>
+            <button onclick="remCol()" id="remcol">remove column</button>
+            <thead>
+                <td id="cornerLU">
+                    <div class="custom-select">
+                        <select id="rounded">
+                            <option value="0">Select Course</option>
+                            <option value="1">HTML/CSS</option>
+                            <option value="2">Javascript</option>
+                            <option value="3">PHP</option>
+                            <option value="4">Angular</option>
+                            <option value="5">Agile</option>
+                            <option value="6">MySQL</option>
+                            <option value="7">Git</option>
+                        </select>
+                     </div>
+                </td>
+                <td class="fouten"><div class="rotate"><p>Fout 1</p></div></td>
+                <td class="fouten"><div class="rotate"><p>Fout 2</p></div></td>
+                <td class="fouten"><div class="rotate"><p>Fout 3</p></div></td>
+                <td class="fouten"><div class="rotate"><p>Fout 4</p></div></td>
+                <td class="fouten"><div class="rotate"><p>Fout 5</p></div></td>
+                <td id="result">Result</td>
+            </thead>
+            <tr class="student">
+                <td>Student 1</td>
+                <td><input type="checkbox" name="fout1"></td>
+                <td><input type="checkbox" name="fout2"></td>
+                <td><input type="checkbox" name="fout3"></td>
+                <td><input type="checkbox" name="fout4"></td>
+                <td><input type="checkbox" name="fout5"></td>
+                <td></td>
+            </tr>
+            <tr class="student">
+                <td>Student 2</td>
+                <td><input type="checkbox" name="fout1"></td>
+                <td><input type="checkbox" name="fout2"></td>
+                <td><input type="checkbox" name="fout3"></td>
+                <td><input type="checkbox" name="fout4"></td>
+                <td><input type="checkbox" name="fout5"></td>
+                <td></td>
+            </tr>
+            <tr class="student">
+                <td>Student 3</td>
+                <td><input type="checkbox" name="fout1"></td>
+                <td><input type="checkbox" name="fout2"></td>
+                <td><input type="checkbox" name="fout3"></td>
+                <td><input type="checkbox" name="fout4"></td>
+                <td><input type="checkbox" name="fout5"></td>
+                <td></td>
+            </tr>
+            <tr class="student">
+                <td>Student 4</td>
+                <td><input type="checkbox" name="fout1"></td>
+                <td><input type="checkbox" name="fout2"></td>
+                <td><input type="checkbox" name="fout3"></td>
+                <td><input type="checkbox" name="fout4"></td>
+                <td><input type="checkbox" name="fout5"></td>
+                <td></td>
+            </tr>
+
+        </table>
+        
+    
+    
+    
+    
+    
+    </body>
+    <script>
+
+            function remCol(){
+                    let tbl = document.getElementById("puntentabel"),
+                    i,
+                    nrCells = tbl.rows[1].cells.length;
+        
+                    if (nrCells > 2){
+                        for (i=0; i<tbl.rows.length;i++){
+                            // alert(nrCells);
+                            tbl.rows[i].deleteCell(nrCells -2);
+                        }
+                    } else{
+                        alert("Deze kolommen moeten blijven staan!")
+                    }
+                    
+            };
+        
+            function addCol(){
+                // append column to the HTML table
+                var tbl = document.getElementById('puntentabel'), // table reference
+                    i;
+                // open loop for each row and append cell
+                for (i = 0; i < tbl.rows.length; i++) {
+                    createCell(tbl.rows[i].insertCell(tbl.rows[i].cells.length-1), i);
+                }
+            }
+            // create DIV element and append to the table cell
+        function createCell(cell, text) {
+            if (text == 0){
+                fout = prompt("Voeg een fout toe: ");
+                var newElement = document.createElement("p");
+                newElement.setAttribute("class", "rotate");
+                // newElement.style("background","rgb(7, 77, 33)");
+                var foutTxt = document.createTextNode(fout);
+                newElement.appendChild(foutTxt);
+                cell.setAttribute("class", "fouten");
+            } else{
+                var newElement = document.createElement("input");
+                newElement.setAttribute("type", "checkbox");
+                newElement.setAttribute("name", fout);
+            }
+            cell.insertBefore(newElement, cell.childNodes[0]);
+        }
+        
+        
+        
+        
+            </script>
+</html>
