@@ -1,0 +1,64 @@
+/* css bij tabel */
+
+body{
+    width: 1000px;
+    margin: 0 auto;
+}
+
+table{
+    margin: 5em auto 0;
+}
+
+table,
+th,
+td {
+    border: 1px solid #111;
+    border-collapse: collapse;
+}
+
+
+tr.student td{
+    padding: 1em;
+}
+
+tr.student td input[type=radio]{
+    margin: 0 auto;
+    width: 100%;
+}
+
+thead #result {
+    padding: .5em 1em;
+}
+
+thead{
+    height: 100px;
+    white-space: nowrap;
+}
+
+table thead td#cornerLU{
+    border-top: 1px solid #FFF;
+    border-left: 1px solid #FFF;
+    display: flex;
+    flex-direction: column;
+}
+
+.rotate {
+
+    /* Safari */
+    -webkit-transform: rotate(-90deg);
+    
+    /* Firefox */
+    -moz-transform: rotate(-90deg);
+    
+    /* IE */
+    -ms-transform: rotate(-90deg);
+    
+    /* Opera */
+    -o-transform: rotate(-90deg);
+    
+    /* Internet Explorer */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+
+    padding: 1em .5em;
+
+    }
