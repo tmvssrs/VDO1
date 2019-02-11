@@ -13,10 +13,21 @@ const PORT = 1105;
 //   res.end('Hello Class!');
 // }).listen(PORT);
 
-APP.use('/project1', X.static(__dirname + '/_SITE_/'));
-APP.use('/project2', X.static(__dirname + '/_P2_/'));
+APP.use('project1', X.static(__dirname + '/_SITE_/'));
+APP.use('project2', X.static(__dirname + '/_P2_/'));
 
-APP.get('/students', (req,res)=>{res.send(["Filiberke","Jommeke"])});
+
+const students = require('./classes/student.js');
+APP.get('/students', (req,res)=>{res.send(new Student("Joey", "Geelen"))});
+
+
+let vakken = ["Frontend", "Backend", "Databanken"]
+APP.get('/vakken', (req,res)=>{res.send(vakken)})
+
+
+const resultaten = require('./classes/resultaten.js')
+APP.get('/resultaten', (req,res)=>{res.send(new Resultaten("dt-fout", "-1"))})
+
 
 APP.listen(PORT, () => {
   	console.log(`\r\nNODE ::: I started my back end server on port ${PORT}.\r\n`);
