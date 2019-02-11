@@ -5,11 +5,29 @@
         <link href="css/opmaak.css" rel="stylesheet">
         <meta charset="utf-8">
         <title>Puntentabel</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
     </head>
     <body>
-        <table>
+        <div class="container">
+        <table id="puntentabel">
             <thead>
-                <td id="cornerLU"><button>Add Problem</button><button>Remove Problem</button></td>
+                <td id="cornerLU">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Add mistake</button>
+                <!-- <div class="custom-select"> -->
+                        <select id="rounded" class="custom-select">
+                        <option value="0">Select Course</option>
+                        <option value="1">HTML/CSS</option>
+                        <option value="2">Javascript</option>
+                        <option value="3">PHP</option>
+                        <option value="4">Angular</option>
+                        <option value="5">Agile</option>
+                        <option value="6">MySQL</option>
+                        <option value="7">Git</option>
+                    </select>
+                <!-- </div> -->
+                </td>
                 <td class="fouten"><p class="rotate">Fout 1</p></td>
                 <td class="fouten"><p class="rotate">Fout 2</p></td>
                 <td class="fouten"><p class="rotate">Fout 3</p></td>
@@ -55,11 +73,125 @@
             </tr>
 
         </table>
-        
+        </div>  
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Mistakes for everyone</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="main_contact_form" action="localhost:7777">
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Add a new mistake</label>
+                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Some mistake">
+                            </div>
+<button type="submit" id="add" class="btn btn-primary" data-dismiss="modal">Add mistake</button>
+                            <p id="success_fail_info"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     
     
     
     
-    
-    </body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
+
+<script>
+    function remCol(){
+        let tbl = document.getElementById("puntentabel"),
+        i,
+        nrCells = tbl.rows[1].cells.length;
+
+        if (nrCells > 2){
+            for (i=0; i<tbl.rows.length;i++){
+                // alert(nrCells);
+                tbl.rows[i].deleteCell(nrCells -2);
+            }
+        } else{
+            alert("Deze kolommen moeten blijven staan!")
+        }
+    };
+
+    function addCol(){
+        console.log("lol");
+        // append column to the HTML table
+        var tbl = document.getElementById('puntentabel'), // table reference
+            i;
+        // open loop for each row and append cell
+        for (i = 0; i < tbl.rows.length; i++) {
+            createCell(tbl.rows[i].insertCell(tbl.rows[i].cells.length-1), i);
+        }
+    }
+            // create DIV element and append to the table cell
+    function createCell(cell, text) {
+        if (text == 0){
+            fout = prompt("Voeg een fout toe: ");
+            var newElement = document.createElement("p");
+            newElement.setAttribute("class", "rotate");
+            // newElement.style("background","rgb(7, 77, 33)");
+            var foutTxt = document.createTextNode(fout);
+            newElement.appendChild(foutTxt);
+            cell.setAttribute("class", "fouten");
+        } else{
+            var newElement = document.createElement("input");
+            newElement.setAttribute("type", "checkbox");
+            newElement.setAttribute("name", fout);
+        }
+        cell.insertBefore(newElement, cell.childNodes[0]);
+    }
+
+
+
+    // Get the form.
+    const form = $('#main_contact_form');
+
+    // Get the messages div.
+    const formMessages = $('#success_fail_info');
+
+    // Set up an event listener for the contact form.
+    $(form).submit(function (e) {
+        // Stop the browser from submitting the form.
+        console.log("...");
+        e.preventDefault();
+
+        // Serialize the form data.
+        let formData = $(form).serialize();
+
+        // Submit the form using AJAX.
+        $.post( $(form).attr('action'), formData)
+        .done( (response)=> {
+            addCol();
+            createCell();
+            // Set the message text.
+            $(formMessages).text('Thanks! Mistake added.');
+            // Make sure that the formMessages div has the 'success' class.
+            $(formMessages).removeClass('error');
+            $(formMessages).addClass('success');
+        })
+        // .fail((data)=> {
+        // // Make sure that the formMessages div has the 'error' class.
+        //     $(formMessages).removeClass('success');
+        //     $(formMessages).addClass('error');
+        //     $(formMessages).text('Oops! An error occured.');
+        // }
+    })
+
+
+
+</script>
+ 
+</body>
 </html>
