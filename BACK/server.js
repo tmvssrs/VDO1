@@ -8,7 +8,7 @@ const APP = X();
   //res.end('Hello Davy!');
 //}).listen(port);
 
-APP.use('/project1', X.static(__dirname + '/project1/'));
+APP.use('/SITE', X.static(__dirname + '/Site/'));
 APP.use('/project2', X.static(__dirname + '/project2'));
 APP.listen(PORT, () => {
     console.log(`/r/nNODE ::: I started my back end server on port $(PORT)./r/n`);

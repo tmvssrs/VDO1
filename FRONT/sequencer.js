@@ -13,7 +13,9 @@ class Sequencer {
         return arr;
     }
     constructor(){
-        
+
     }
     
 }
+
+module.exports = Sequencer;

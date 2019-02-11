@@ -18,28 +18,34 @@
       crossorigin="anonymous">
     </script>
     <script>
-        
-        $(document).ready(function(){
-            
-            let List = ['aap', 'kiekeboe', 'blabla', 'hallo', 'b'];
-            let orderedList = [];
-            $('.example').text(List);
-                
-            $("button").click(function() {
 
-            let arrayLength = List.length;
-            for (let i = 0; i < arrayLength; i++) {
-            var lengthListItem = List[i].length;
-                if(lengthListItem > List[i].length){
-                    orderedList.push(lengthListItem);
-                }else{
-                    orderedList.splice(0, 0, lengthListItem);
-                }
-            }
-                console.log(orderedList);
-            });
+        let x = new sequencer();
+        
+        //$(document).ready(function(){
             
-        });
+           // let List = ['aap', 'kiekeboe', 'blabla', 'hallo', 'b'];
+            //let orderedList = [];
+            //$('.example').text(List);
+                
+            //$("button").click(function() {
+
+            //let arrayLength = List.length;
+            //for (let i = 0; i < arrayLength; i++) {
+            //var lengthListItem = List[i].length;
+               // if(lengthListItem > List[i].length){
+                   // orderedList.push(lengthListItem);
+                //}else{
+                    //orderedList.splice(0, 0, lengthListItem);
+                //}
+            //}
+                //console.log(orderedList);
+            //});
+            
+       // });
+
+       let List = ['aap', 'kiekeboe', 'blabla', 'hallo', 'b'];
+       document.getElementById("holder") = x.sortArray(array);
+
     </script>
     
 </html>
