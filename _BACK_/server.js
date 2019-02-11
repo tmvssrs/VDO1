@@ -17,7 +17,11 @@ const PORT = 2101;
 APP.use('/project1', X.static(__dirname + '/_SITE_/'));
 APP.use('/project2', X.static(__dirname + '/_P2_/'));
 
+<<<<<<< HEAD
 APP.use('/students', (req,res)=>{res.send(["Filidgfdfd","Jomekekeke"])});
+=======
+APP.get('/students', (req,res)=>{res.send(["Filiberke","Jommeke"])});
+>>>>>>> 403430f5fe2bbe9d379afbb8cfcfcffc181898a7
 
 APP.listen(PORT, () => {
   	console.log(`\r\nNODE ::: I started my back end server on port ${PORT}.\r\n`);
