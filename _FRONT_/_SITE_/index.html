@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/opmaak.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Array volgens grootte sorteren</h1>
+    
+    <h2>Before sort</h2>
+    <p id="arraystart"></p>
+    
+    <h2>After sort</h2>
+    <p id="arrayend"></p>
+    
+    <script type="text/javascript">
+        var fruits = ["Banana", "Orange", "Apple", "Mango"];
+        var fruitssort = [];
+
+        function sorterenoplengte(lijst) {
+
+            for (index = 0; index < lijst.length; ++index) {
+                var kleinstelengte = lijst[index].length;
+
+                if (kleinstelengte > lijst[index].length){
+                    kleinstelengte = lijst[index].length;
+                    fruitssort.unshift(lijst[index]);
+                }
+                else{
+                    fruitssort.push(lijst[index]);
+                }
+            }
+          }
+        
+        document.getElementById("arraystart").innerHTML = fruits;
+        
+        sorterenoplengte(fruits);
+        
+        document.getElementById("arrayend").innerHTML = fruitssort;
+    </script>
+</body>
+</html>
