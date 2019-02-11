@@ -9,7 +9,7 @@ const APP = X();
 //}).listen(port);
 
 APP.use('/SITE', X.static(__dirname + '/Site/'));
-APP.use('/project2', X.static(__dirname + '/project2'));
+APP.use('/P2', X.static(__dirname + '/P2/'));
 APP.listen(PORT, () => {
     console.log(`/r/nNODE ::: I started my back end server on porter $(PORT)./r/n`);
 });
