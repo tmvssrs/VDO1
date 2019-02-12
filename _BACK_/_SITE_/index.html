@@ -10,9 +10,8 @@
 </head>
 
 <body>
-  <div id="holder">
-
-  </div>
+  <div id="holder"></div>
+  <div id="holder2"></div>
   <script>
   let g = $.get( "http://localhost:2105/students", function( data ) {
   // $( ".result" ).html( data );
@@ -21,7 +20,10 @@
   // alert(JSON.stringify(g));
     let x = new Sequencer();
     let array = ["aap", "kiekeboe", "blabla", "b"];
+    let numbers = 32243;
     document.getElementById("holder").innerHTML = x.sortArray(array);
+    document.getElementById("holder2").innerHTML = x.reverseNumber(numbers);
+
   </script>
 
 </body>

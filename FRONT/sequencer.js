@@ -1,6 +1,6 @@
 class Sequencer {
 
-    sortArray(array){
+    sortArray(arr){
         for(let i = 0; i <len ; i++){
             for(let j = i + 1; j < len ; j++){
                 if(arr[i].length > arr[j].length){
@@ -14,6 +14,13 @@ class Sequencer {
     }
     constructor(){
 
+    }
+
+    reverseNumber(num){
+        for(let i = 0; i < num.length ; i++){
+            num[i];
+            console.log(num[i]);
+        }
     }
     
 }
