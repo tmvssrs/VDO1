@@ -18,4 +18,4 @@ class Sequencer {
     
 }
 
-module.exports = Sequencer;
+//module.exports = Sequencer;
