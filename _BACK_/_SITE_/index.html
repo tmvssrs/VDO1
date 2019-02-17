@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sort</title>
+
+    <!-- scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="sequencer.js"></script>
+</head>
+
+<style>
+    html {
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    body {
+        height: 100vh;
+        background: linear-gradient(160deg, rgb(255, 91, 87) 30%, rgb(255, 170, 66) 71%);
+    }
+
+    h2 {
+        font-family: "Black Jack";
+        font-size: 5rem;
+        color: #3a020a;
+    }
+
+    p { font-family: Akrobat }
+</style>
+
+    <body>
+        <h2>Hallo</h2>
+        <div id="result"></div>
+
+        <script>
+            let g = $.get('http://localhost:5588/students', function(data) {
+            // $( ".result" ).html( data );
+                alert( data );
+            });
+            
+            // alert(JSON.stringify(g)););
+            let x = new Sequencer();
+            let array = ["aap","kiekeboe","blabla","b"];
+            document.getElementById("result").innerHTML = x.sortArray(array);
+        </script>
+      
+        <!--  <script>
+
+            let words = ["aap","kiekeboe","blabla","b"];
+
+            function sort(array) {
+                for(let i = 0; i < array.length; i++) {
+                    for (let j = i + 1; j < array.length; j++) {
+
+                        if (array[i].length > array[j].length) {
+
+                            let temp = array[i];
+                            array[i] = array[j];
+                            array[j] = temp;
+                        }
+                    }
+                } return array + "<br>";
+            }
+            $("#result").html(sort(words));
+
+        </script> -->
+
+
+    </body>
+</html>
