@@ -13,10 +13,25 @@
   <div id="holder">
 
   </div>
+  <div class="result">
+
+  </div>
   <script>
-  let g = $.get( "http://localhost:2105/students", function( data ) {
-  // $( ".result" ).html( data );
-  alert( data );
+
+    $.getJSON("http://localhost:5679/students", function(data) {
+      let items = [];
+      $.each(data, function(key, value) {
+        items.push("<li data-id='" + key + "'>" + value + "</li>");
+      });
+      $( "<ul/>", {
+        "class": "my-new-list",
+        html: items.join( "" )
+      }).appendTo( ".result" );
+    });
+
+  let g = $.get( "http://localhost:5679/students", function( data ) {
+  // $(".result").html( data );
+  // alert( data );
 });
   // alert(JSON.stringify(g));
     let x = new Sequencer();

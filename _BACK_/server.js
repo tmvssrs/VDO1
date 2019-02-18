@@ -16,7 +16,31 @@ const PORT = 5679;
 APP.use('/', X.static(__dirname + '/_SITE_/'));
 APP.use('/project2', X.static(__dirname + '/_P2_/'));
 
-APP.get('/students', (req,res)=>{res.send(["Filiberke","Jommeke"])});
+APP.get('/students', (req,res)=>{res.send([
+  { id: 1, firstname: 'John', lastname: 'Doe'},
+  { id: 2, firstname: 'Peter', lastname: 'Jefferson'},
+  { id: 3, firstname: 'Amy', lastname: 'Winehouse'},
+  { id: 4, firstname: 'Hannah', lastname: 'Montana'},
+  { id: 5, firstname: 'Michael', lastname: 'Douglas'},
+  { id: 6, firstname: 'Sandy', lastname: 'Bottoms'},
+  { id: 7, firstname: 'Betty', lastname: 'Gretty'},
+  { id: 8, firstname: 'Richard', lastname: 'Poor'},
+  { id: 9, firstname: 'Susan', lastname: 'Boyle'},
+  { id: 10, firstname: 'Vicky', lastname: 'Patterson'},
+  { id: 11, firstname: 'Ben', lastname: 'Parker'},
+  { id: 12, firstname: 'William', lastname: 'Richards'},
+  { id: 13, firstname: 'Chuck', lastname: 'Wood'},
+  { id: 14, firstname: 'Viola', lastname: 'Jefferson'}
+]
+)});
+
+APP.get('/courses', (req,res)=>{res.send(["HTML","CSS","JavaScript","jQuery"])});
+
+APP.get('/maxime', function(req, res){
+  res.send('hello world');
+});
+
+APP.get('/', (req,res)=>{res.send(["HTML","CSS","JavaScript","jQuery"])});
 
 APP.listen(PORT, () => {
   	console.log(`\r\nNODE ::: I started my back end server on port ${PORT}.\r\n`);
