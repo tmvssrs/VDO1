@@ -15,6 +15,9 @@ const PORT = 2626;
 
 APP.use('/project1', X.static(__dirname + '/_SITE_/'));
 APP.use('/project2', X.static(__dirname + '/_P2_/'));
+APP.use('/examen', X.static(__dirname + '/dag3/'));
+APP.use('/lol', X.static(__dirname + '/_FRONT_/dag4/'));
+
 APP.listen(PORT, () => {
   	console.log(`\r\nNODE ::: I started my back end server on port ${PORT}.\r\n`);
   });
