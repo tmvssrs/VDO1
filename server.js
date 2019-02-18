@@ -1,6 +1,7 @@
 const X = require('express');
+const mysql = require('mysql');
 const APP = X();
-const PORT = 7777;
+const PORT = 1995;
 // const PORT2 = 9999;
 // const CORS = require('cors');
 // const bodyParser = require('body-parser'); // needed?
@@ -33,9 +34,9 @@ APP.listen(PORT, () => {
 //     {antwoord:`you sent ${arg} as argument`}
 //   );
 // })
-
+/*
 let output;
-const mysql = require('mysql');
+
  let con = mysql.createConnection({
  	host: "localhost",
  	user: "root",
@@ -55,7 +56,7 @@ const mysql = require('mysql');
 APP.get('/students', (req,res) => {res.send(output)});
 // APP.get('/vakken', (req,res) => {res.send(["HTML","CSS"])});
 // APP.get('/fouten', (req,res) => {res.send(["Hoofdletter vergeten","; vergeten"])});
-
+*/
 // let database  =  {
 // 	"jan":{beroep:"dakwerker",hobby:"diepzeeknikkeren"},
 // 	"piet":{beroep:"zeebonk",hobby:"langeafstandschminken"}
