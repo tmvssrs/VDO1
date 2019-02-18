@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html>
 <head>
     <meta charset="utf-8">
@@ -29,3 +30,62 @@ YIPPIE!
 </script>
 
 </body>
+=======
+<<<<<<< HEAD
+<html>
+
+<head>
+  <meta charset="utf-8">
+
+  <!-- scripts -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="sequencer.js"></script>
+</head>
+
+<body>
+  <div id="holder">
+
+  </div>
+  <script>
+  let g = $.get( "http://localhost:2105/students", function( data ) {
+  // $( ".result" ).html( data );
+  alert( data );
+});
+  // alert(JSON.stringify(g));
+    let x = new Sequencer();
+    let array = ["aap", "kiekeboe", "blabla", "b"];
+    document.getElementById("holder").innerHTML = x.sortArray(array);
+  </script>
+
+</body>
+=======
+
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Sorteren</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1>Array volgens grootte sorteren</h1>
+    
+    <h2>Before sort</h2>
+    <p id="arraystart"></p>
+    
+    <h2>After sort</h2>
+    <p id="arrayend"></p>
+
+    <!-- HTML Import -->
+    <script src="sequencer.js"></script>
+
+    <script type="text/javascript">
+        let fruits = ["Banana", "Orange", "Apple", "Mango"];
+        document.getElementById("arraystart").innerHTML = fruits;
+
+        let x = new Sequencer().sortArray(fruits);
+        document.getElementById("arrayend").innerHTML = x;
+    </script>
+</body>
+</html>
+>>>>>>> 00a2d07a814cdf45a662768993376e513683aecc
+>>>>>>> origin/annso

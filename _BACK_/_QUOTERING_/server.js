@@ -1,7 +1,6 @@
 const X = require('express');
 const APP = X();
-const PORT = 2626;
-
+const PORT = 2105;
 // const PORT2 = 9999;
 // const CORS = require('cors');
 // const bodyParser = require('body-parser'); // needed?
@@ -16,9 +15,6 @@ const PORT = 2626;
 
 APP.use('/project1', X.static(__dirname + '/_SITE_/'));
 APP.use('/project2', X.static(__dirname + '/_P2_/'));
-APP.use('/examen', X.static(__dirname + '/dag3/'));
-APP.use('/lol', X.static(__dirname + '/_FRONT_/dag4/'));
-
 
 APP.listen(PORT, () => {
   	console.log(`\r\nNODE ::: I started my back end server on port ${PORT}.\r\n`);
@@ -37,20 +33,6 @@ APP.listen(PORT, () => {
 //   );
 // })
 
-// const mysql = require('mysql');
-// let con = mysql.createConnection({
-// 	host: "localhost",
-// 	user: "yourusername",
-// 	password: "yourpassword",
-// 	database: "mydb"
-// });
-// con.connect(function (err) {
-// 	if (err) throw err;
-// 	con.query("SELECT * FROM customers",  (err, result, fields) =>{
-// 		if (err) {throw err;}
-// 		console.log(result);
-// 	});
-// });
 let output;
 const mysql = require('mysql');
  let con = mysql.createConnection({
