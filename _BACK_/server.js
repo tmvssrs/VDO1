@@ -17,8 +17,6 @@ APP.post('/', (req, res)=>{ console.log("pre"+req+"post")});
 APP.use('/project2', X.static(__dirname + '/_P2_/'));
 APP.use('/students', X.static(__dirname + '/_TEMP_/'));
 
-// APP.get('/students', (req,res)=>{res.send(["Filiberke","Jommeke"])});
-
 APP.listen(PORT, () => {
   	console.log(`\r\nNODE ::: I started my back end server on port ${PORT}.\r\n`);
   });
@@ -36,20 +34,26 @@ APP.listen(PORT, () => {
 //   );
 // })
 
-// const mysql = require('mysql');
-// let con = mysql.createConnection({
-// 	host: "localhost",
-// 	user: "yourusername",
-// 	password: "yourpassword",
-// 	database: "mydb"
-// });
-// con.connect(function (err) {
-// 	if (err) throw err;
-// 	con.query("SELECT * FROM customers",  (err, result, fields) =>{
-// 		if (err) {throw err;}
-// 		console.log(result);
-// 	});
-// });
+let output;
+const mysql = require('mysql');
+ let con = mysql.createConnection({
+ 	host: "localhost",
+ 	user: "root",
+ 	password: "mysql",
+ 	database: "grade_rating"
+ });
+ con.connect(function (err) {
+ 	if (err) throw err;
+ 	con.query("select stu_voornaam, stu_naam, vak_naam, fou_minpunten from studenten s inner join stu_vak_fou stf on s.stu_id = stf.fk_stu_id inner join fouten f on stf.fk_fou_id = f.fou_id inner join vakken v on stf.fk_vak_id = v.vak_id group by stu_voornaam, stu_naam, vak_naam order by stu_naam;",  (err, result, fields) =>{
+ 		if (err) {throw err;}
+        output = JSON.stringify(result);
+        console.log(output);
+ 	});
+ });
+
+//APP.get('/index', (req,res) => {res.send(output)});
+// APP.get('/vakken', (req,res) => {res.send(["HTML","CSS"])});
+// APP.get('/fouten', (req,res) => {res.send(["Hoofdletter vergeten","; vergeten"])});
 
 // let database  =  {
 // 	"jan":{beroep:"dakwerker",hobby:"diepzeeknikkeren"},
