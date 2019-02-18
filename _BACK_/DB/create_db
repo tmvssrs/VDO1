@@ -1,0 +1,40 @@
+-- we don't know how to generate schema grade_rating (class Schema) :(
+create table if not exists fouten
+(
+	fou_id int auto_increment
+		primary key,
+	fou_omschrijving varchar(255) null,
+	fou_minpunten int null
+)
+;
+
+create table if not exists studenten
+(
+	stu_id int auto_increment
+		primary key,
+	stu_voornaam varchar(55) null,
+	stu_naam varchar(55) null
+)
+;
+
+create table if not exists vakken
+(
+	vak_id int auto_increment
+		primary key,
+	vak_naam varchar(255) null
+)
+;
+
+create table if not exists stu_vak_fou
+(
+	fk_stu_id int null,
+	fk_vak_id int null,
+	fk_fou_id int null,
+	constraint stu_vak_fou_fouten_fou_id_fk
+		foreign key (fk_fou_id) references fouten (fou_id),
+	constraint student_vak_studenten_stu_id_fk
+		foreign key (fk_stu_id) references studenten (stu_id),
+	constraint student_vak_vakken_vak_id_fk
+		foreign key (fk_vak_id) references vakken (vak_id)
+)
+;
