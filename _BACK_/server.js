@@ -13,9 +13,9 @@ const PORT = 7777;
 //   res.end('Hello Class!');
 // }).listen(PORT);
 
-APP.post('/students', (req, res)=>{ console.log("pre"+req+"post")});
+// APP.post('/students', (req, res)=>{ console.log("pre"+req+"post")});
 APP.use('/project2', X.static(__dirname + '/_P2_/'));
-APP.use('/students', X.static(__dirname + '/_TEMP_/'));
+APP.use('/student', X.static(__dirname + '/_TEMP_/'));
 
 APP.listen(PORT, () => {
   	console.log(`\r\nNODE ::: I started my back end server on port ${PORT}.\r\n`);
@@ -47,12 +47,24 @@ const mysql = require('mysql');
  	// con.query("select stu_voornaam, stu_naam, vak_naam, fou_minpunten from studenten s inner join stu_vak_fou stf on s.stu_id = stf.fk_stu_id inner join fouten f on stf.fk_fou_id = f.fou_id inner join vakken v on stf.fk_vak_id = v.vak_id group by stu_voornaam, stu_naam, vak_naam order by stu_naam;",  (err, result, fields) =>{
  	con.query("select * from studenten",  (err, result, fields) =>{
  		if (err) {throw err;}
-        output = JSON.stringify(result);
-        console.log(output);
+        studentOutput = JSON.stringify(result);
+        console.log(studentOutput);
+ 	});
+ 	con.query("select * from fouten",  (err, result, fields) =>{
+ 		if (err) {throw err;}
+        mistakesOutput = JSON.stringify(result);
+        console.log(mistakesOutput);
+ 	});
+ 	con.query("select * from vakken",  (err, result, fields) =>{
+ 		if (err) {throw err;}
+        disciplinesOutput = JSON.stringify(result);
+        console.log(disciplinesOutput);
  	});
  });
 
-APP.get('/students', (req,res) => {res.send(output)});
+APP.get('/students', (req,res) => {res.send(studentOutput)});
+APP.get('/mistakes', (req,res) => {res.send(mistakesOutput)});
+APP.get('/disciplines', (req,res) => {res.send(disciplinesOutput)});
 // APP.get('/vakken', (req,res) => {res.send(["HTML","CSS"])});
 // APP.get('/fouten', (req,res) => {res.send(["Hoofdletter vergeten","; vergeten"])});
 

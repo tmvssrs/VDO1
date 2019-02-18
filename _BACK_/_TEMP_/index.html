@@ -9,6 +9,7 @@
         crossorigin="anonymous">
     </head>
     <body>
+        
         <div class="container">
         <table id="puntentabel">
             <thead>
@@ -73,6 +74,8 @@
             </tr>
 
         </table>
+
+        <div id="demo"></div>
         </div>  
 
         <!-- Modal -->
@@ -86,7 +89,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="main_contact_form" action="localhost:7777">
+                        <form id="main_contact_form" action="localhost:7777/student">
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Add a new mistake</label>
                                 <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Some mistake">
@@ -108,12 +111,95 @@
     crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
-
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
 <script>
+const table = "<table>"
+const endtable = "</table>";
+const thead = "<thead>";
+const endthead = "</thead>";
+const tr = "<tr class= 'student'>";
+const endtr = "</tr>";
+const td = "<td>";
+const endtd = "</td>";
+const tdoption ="<td id='cornerLU'>";
+let txt = table;
+let xhttp;
+xhttp = new XMLHttpRequest();
+
+function displayStudentsColumn(){
+    xhttp.onreadystatechange = function() {
+        // let txt = table;    
+        if (this.readyState == 4 && this.status == 200) {
+            let arr1 = JSON.parse(this.responseText);
+            // console.log(arr1);
+            //let myObj = JSON.parse(arr1);
+                for (x in arr1) {
+                    txt += tr;
+                    txt += td + arr1[x].stu_voornaam + endtd;
+                }
+                txt += endtr
+            document.getElementById("demo").innerHTML = txt;
+        }
+    }
+    xhttp.open("GET","http://localhost:7777/students", true);
+    xhttp.send();
+}
+
+function displayMistakesColumns(){
+    xhttp.onreadystatechange = function() {
+    // let txt = table;
+    if (this.readyState == 4 && this.status == 200) {
+        let arr1 = JSON.parse(this.responseText);
+        // console.log(arr1);
+        //let myObj = JSON.parse(arr1);
+            for (x in arr1) {
+                txt += thead;
+                txt += td + arr1[x].fou_omschrijving + endtd;
+                txt += endthead
+            }
+        txt += endtable
+        document.getElementById("demo").innerHTML = txt;
+        }
+    }
+    xhttp.open("GET","http://localhost:7777/mistakes", true);
+    xhttp.send();
+}
+
+function displayDisciplineMenu(){
+    xhttp.onreadystatechange = function() {
+    // let txt = table;
+        if (this.readyState == 4 && this.status == 200) {
+            let arr1 = JSON.parse(this.responseText);
+            // console.log(arr1);
+            //let myObj = JSON.parse(arr1);
+            txt += thead;
+            txt += tdoption;
+            txt += '<select id="rounded" class="custom-select">';
+            for (x in arr1) {
+                 txt += "<option>" + arr1[x].vak_naam + "</option>";
+            }
+        txt += "</select>";
+        txt += endtd;
+        txt += endthead;
+        txt += endtable;
+        document.getElementById("demo").innerHTML = txt;
+        }
+    }
+    xhttp.open("GET","http://localhost:7777/disciplines", true);
+    xhttp.send();
+}
+
+displayStudentsColumn();
+// displayDisciplineMenu();
+// displayMistakesColumns();
+
+
+
     function remCol(){
         let tbl = document.getElementById("puntentabel"),
-        i,
-        nrCells = tbl.rows[1].cells.length;
+                    i,
+                    nrCells = tbl.rows[1].cells.length;
 
         if (nrCells > 2){
             for (i=0; i<tbl.rows.length;i++){
@@ -161,32 +247,32 @@
     const formMessages = $('#success_fail_info');
 
     // Set up an event listener for the contact form.
-    $(form).submit(function (e) {
+    // $(form).submit(function (e) {
         // Stop the browser from submitting the form.
-        console.log("...");
-        e.preventDefault();
+        // console.log("...");
+        // e.preventDefault();
 
         // Serialize the form data.
-        let formData = $(form).serialize();
+        // let formData = $(form).serialize();
 
         // Submit the form using AJAX.
-        $.post( $(form).attr('action'), formData)
-        .done( (response)=> {
-            addCol();
-            createCell();
+        // $.post( $(form).attr('action'), formData)
+        // .done( (response)=> {
+        //     addCol();
+        //     createCell();
             // Set the message text.
-            $(formMessages).text('Thanks! Mistake added.');
+            // $(formMessages).text('Thanks! Mistake added.');
             // Make sure that the formMessages div has the 'success' class.
-            $(formMessages).removeClass('error');
-            $(formMessages).addClass('success');
-        })
+        //     $(formMessages).removeClass('error');
+        //     $(formMessages).addClass('success');
+        // })
         // .fail((data)=> {
         // // Make sure that the formMessages div has the 'error' class.
         //     $(formMessages).removeClass('success');
         //     $(formMessages).addClass('error');
         //     $(formMessages).text('Oops! An error occured.');
         // }
-    })
+    // })
 
 
 
