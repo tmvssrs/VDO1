@@ -1,25 +1,23 @@
-<<<<<<< HEAD
-class Sequencer {
-  sortArray(arr) {
-    let len = arr.length;
-    for (let i = 0; i < len; i++) {
-      for (let j = i + 1; j < len; j++) {
-        if (arr[i].length > arr[j].length) {
-          let temp = arr[i];
-          arr[i] = arr[j];
-          arr[j] = temp;
-        }
-      }
-    }
-    return arr;
-  }
-  constructor(){
+// class Sequencer {
+//   sortArray(arr) {
+//     let len = arr.length;
+//     for (let i = 0; i < len; i++) {
+//       for (let j = i + 1; j < len; j++) {
+//         if (arr[i].length > arr[j].length) {
+//           let temp = arr[i];
+//           arr[i] = arr[j];
+//           arr[j] = temp;
+//         }
+//       }
+//     }
+//     return arr;
+//   }
+//   constructor(){
 
-  }
-}
+//   }
+// }
 
 // module.exports = Sequencer
-=======
 class Sequencer{
     sortArray(array){
         let len = array.length;
@@ -36,4 +34,3 @@ class Sequencer{
         return array;
     }
 }
->>>>>>> 00a2d07a814cdf45a662768993376e513683aecc

@@ -19,11 +19,15 @@
         let xhttp = new XMLHttpRequest();
         let myObj;
         let i;
-        let array_vakken = Array();
-        let array_fouten = Array();
-        let array_students = Array();
-
-        function tableVakken(callback){
+        function tableVakken(){
+            let txtvakken = '<table id="puntentabel">'+
+                        '<button onclick="addCol()" id="addcol">add column</button>'+
+                        '<button onclick="remCol()" id="remcol">remove column</button>'+
+                        '<thead>'+
+                        '<td id="cornerLU">'+
+                        '<div class="custom-select">'+
+                        '<select id="rounded">'+
+                        '<option value="0">Select Course</option>';
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -31,69 +35,80 @@
                     let x = JSON.parse(this.responseText);
                     myObj = JSON.parse(x);
                     for (vak in myObj) {
-                        array_vakken.push(myObj[vak]);
-                        console.log(myObj[vak])
+                        txtvakken += '<option value="'+i+'">'+myObj[vak].vak_naam+'</option>'
+                        i++          
                     }
-                    callback(array_vakken);
+                    txtvakken += '</select></div></td>';
+                    num = 2;
+                    printTable(txtvakken);
                 }
             }
             xhttp.open("GET", "http://localhost:1777/vakken", true);
             xhttp.send();
         } // end function tableVakken
 
-        function tableFouten(callback){
+        function tableFouten(){
+            let txtfouten = "";
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                 // Typical action to be performed when the document is ready:
                     let x = JSON.parse(this.responseText);
                     myObj = JSON.parse(x);
-                    for (fout in myObj) {
-                        array_fouten.push(myObj[fout]);
+                    for (fouten in myObj) {
+                        txtfouten += '<td class="fouten"><div class="rotate"><p>'+myObj[fouten].fou_omschrijving+'</p></div></td>';
                     }
-                    callback(array_fouten);
+                    txtfouten += '<td id="result">Result</td></thead>';
+                    num = 3;
+                    printTable(txtfouten);
                 }
             }
             xhttp.open("GET", "http://localhost:1777/fouten", true);
             xhttp.send();
         } // end function tableFouten
 
-        function tableStudenten(callback){
+        function tableStudenten(){
+            let txtstudenten = "";
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                 // Typical action to be performed when the document is ready:
                     let x = JSON.parse(this.responseText);
                     myObj = JSON.parse(x);
                     for (student in myObj) {
-                        array_students.push(myObj[student]);
+                        txtstudenten += 
+                        "<tr class='student'>"+
+                        "<td>"+ myObj[student].stu_voornaam + " " + myObj[student].stu_naam + "</td>"+
+                        "<td><input type='checkbox' name='fout1'></td>"+
+                        "<td><input type='checkbox' name='fout2'></td>"+
+                        "<td><input type='checkbox' name='fout3'></td>"+
+                        "<td><input type='checkbox' name='fout4'></td>"+
+                        "<td></td>"+
+                        "</tr>";
                     }
-                    callback(array_students);
+                    txtstudenten += "</table>";
+                    num = 4;
+                    printTable(txtstudenten);
                 }
 
             }
             xhttp.open("GET", "http://localhost:1777/students", true);
             xhttp.send();
-        } // end function tableStudenten
+        }
 
-
-        tableFouten((x)=>{
-            for (i = 0;i<x.length;i++){
-                console.log(x[i].vak_naam);
+        let num = 0;
+        let fulltable = "";
+        function printTable(respons){
+            if (num == 0){ num = 1; } 
+            else { fulltable += respons; }
+            if (num == 1){ tableVakken(); }
+            if (num == 2){ tableFouten(); }
+            if (num == 3){ tableStudenten(); }
+            if (num == 4){
+                document.getElementById("test").innerHTML = fulltable;
             }
-        });
+            
+        } // end function printTable
+        printTable();
 
-        tableVakken((x)=>{
-            for (i = 0;i<x.length;i++){
-                console.log(x[i].fou_omschrijving);
-            }
-        });
-
-        tableStudenten((x)=>{
-            for (i = 0;i<x.length;i++){
-                console.log(x[i].fou_omschrijving);
-            }
-        });
-
-        
 
             function remCol(){
                     let tbl = document.getElementById("puntentabel"),
