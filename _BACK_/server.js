@@ -12,8 +12,9 @@ const PORT = 5588;
 /* statische verwijzing */
 APP.use('/project1', X.static(__dirname + '/_SITE_/'));
 APP.use('/project2', X.static(__dirname + '/_P2_/'));
-
 APP.use('/project3', X.static(__dirname + '/_P3_/'));
+
+/* Data terugsturen, enkel als je een get call doet */
 APP.get('/students',(req, res) => {res.send(["Filiberke","Jommeke"])});
 
 APP.listen(PORT, () => {
