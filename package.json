@@ -1,7 +1,7 @@
 {
-  "name": "c",
+  "name": "package.json",
   "version": "1.0.0",
-  "description": "",
+  "description": "## NODE server ::: Dynamic IP & FTP port Tinkerboard (TinkerOS - Linux Debian) ```10.109.255.29:22```",
   "main": "server.js",
   "dependencies": {
     "express": "^4.16.4"
@@ -12,5 +12,13 @@
     "start": "node server.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/essadji/VDO1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/essadji/VDO1/issues"
+  },
+  "homepage": "https://github.com/essadji/VDO1#readme"
 }
