@@ -1,7 +1,7 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "node back end",
+  "description": "back end",
   "main": "server.js",
   "dependencies": {
     "cors": "^2.8.5",
@@ -13,6 +13,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Ann-Sophie",
+  "author": "vlad",
   "license": "UNLICENSED"
 }
