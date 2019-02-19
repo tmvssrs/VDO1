@@ -5,10 +5,11 @@ body{
     margin: 0 auto;
     font-family: Helvetica, sans-serif;
     font-size: 14px;
-}
-
-table{
-    margin: 5em auto 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 80vh;
 }
 
 table,
@@ -137,4 +138,7 @@ input[type="checkbox" i] {
 
 tr.student td {
     padding: 1.7em 1.5em 1.1em 1.6em;
+    text-align: center;
 }
+
+section { margin-top: 3em; }

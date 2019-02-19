@@ -4,10 +4,13 @@
         <link href="css/opmaak.css" rel="stylesheet">
         <meta charset="utf-8">
         <title>Puntentabel</title>
+
+        <!-- scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     </head>
     <body>
-        <table>
-            <thead>
+        <!-- <table id="table">
+            <tr id="row1">
                 <td id="cornerLU">
                     <div class="custom-select">
                         <select id="rounded">
@@ -28,8 +31,8 @@
                 <td class="fouten"><p class="rotate">Fout 4</p></td>
                 <td class="fouten"><p class="rotate">Fout 5</p></td>
                 <td id="result">Result</td>
-            </thead>
-            <tr class="student">
+            </tr>
+            <tr id="row2" class="student">
                 <td>Student 1</td>
                 <td><input type="checkbox" name="fout1"></td>
                 <td><input type="checkbox" name="fout2"></td>
@@ -68,10 +71,101 @@
 
         </table>
         
+        <input type="text" id="tableHeader" value="Vul je fout hier in">
+        <input type="button" value="Fout toevoegen" class="add_row" onclick="appendColumn()"> -->
     
     
-    
-    
-    
+        <table id="table">
+            <tr id="row1">
+                <td id="cornerLU">
+                    <div class="custom-select">
+                        <select id="rounded">
+                            <option value="0">Select Course</option>
+                            <option value="1">HTML/CSS</option>
+                            <option value="2">Javascript</option>
+                            <option value="3">PHP</option>
+                            <option value="4">Angular</option>
+                            <option value="5">Agile</option>
+                            <option value="6">MySQL</option>
+                            <option value="7">Git</option>
+                        </select>
+                     </div>
+                </td>
+                <td class="fouten"><p>Fout 1</p></td>
+                <td class="fouten"><p>Fout 2</p></td>
+                <td class="fouten"><p>Fout 3</p></td>
+                <td class="fouten"><p>Fout 4</p></td>
+                <td class="fouten"><p>Fout 5</p></td>
+                <td id="result">Result</td>
+            </tr>
+            <tr id="row2" class="student">
+                <td>Student 1</td>
+                <td><input type="checkbox" name="fout1"></td>
+                <td><input type="checkbox" name="fout2"></td>
+                <td><input type="checkbox" name="fout3"></td>
+                <td><input type="checkbox" name="fout4"></td>
+                <td><input type="checkbox" name="fout5"></td>
+                <td></td>
+            </tr>
+            <tr class="student">
+                <td>Student 2</td>
+                <td><input type="checkbox" name="fout1"></td>
+                <td><input type="checkbox" name="fout2"></td>
+                <td><input type="checkbox" name="fout3"></td>
+                <td><input type="checkbox" name="fout4"></td>
+                <td><input type="checkbox" name="fout5"></td>
+                <td></td>
+            </tr>
+            <tr class="student">
+                    <td>Student 3</td>
+                    <td><input type="checkbox" name="fout1"></td>
+                    <td><input type="checkbox" name="fout2"></td>
+                    <td><input type="checkbox" name="fout3"></td>
+                    <td><input type="checkbox" name="fout4"></td>
+                    <td><input type="checkbox" name="fout5"></td>
+                    <td></td>
+                </tr>
+        </table>
+        <section>
+            <input type="text" placeholder="Vul je fout hier in" id ="inputFout">
+            <input type="button" value="Fout toevoegen" onclick="javascript:appendColumn()" class="append_column"/><br />
+        </section>
     </body>
+
+    <script>
+        //Add column after last column
+        var lastColumn = 6;
+
+        // append column to the HTML table
+        function appendColumn() {
+            var tbl = document.getElementById('table'),
+                i;
+            // open loop for each row and append cell
+            for (i = 0; i < tbl.rows.length; i++) {
+                if(i === 0) {
+                    createCellHead(tbl.rows[i].insertCell(lastColumn));
+                } else {
+                    createCellInput(tbl.rows[i].insertCell(lastColumn));
+                }
+            } lastColumn++
+        }
+
+        // create DIV element and append to the table cell
+        function createCellHead(cell) {
+            var inputFout = document.getElementById("inputFout").value;
+            var p = document.createElement('p'),        // create element
+                txt = document.createTextNode(inputFout);  // create text
+            p.appendChild(txt);                         // append text to the element
+            cell.appendChild(p);                        // append to the table cell
+            var inputFout = document.getElementById("inputFout").value = ""; //Empty input
+        }
+        var count = 0;
+
+        function createCellInput(cell) {
+            var input = document.createElement('input');
+            input.setAttribute("type", "checkbox");
+            cell.appendChild(input);
+        }
+
+    </script>
 </html>
