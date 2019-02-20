@@ -15,16 +15,18 @@
     
     
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        let xhttp = new XMLHttpRequest();
+        
         let myObj;
         let i;
+        let ii;
         let array_vakken = Array();
         let array_fouten = Array();
         let array_students = Array();
 
         function tableVakken(callback){
-
+            let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                 // Typical action to be performed when the document is ready:
@@ -32,9 +34,7 @@
                     myObj = JSON.parse(x);
                     for (vak in myObj) {
                         array_vakken.push(myObj[vak]);
-                        console.log(myObj[vak])
                     }
-                    callback(array_vakken);
                 }
             }
             xhttp.open("GET", "http://localhost:1777/vakken", true);
@@ -42,6 +42,7 @@
         } // end function tableVakken
 
         function tableFouten(callback){
+            let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                 // Typical action to be performed when the document is ready:
@@ -58,6 +59,7 @@
         } // end function tableFouten
 
         function tableStudenten(callback){
+            let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                 // Typical action to be performed when the document is ready:
@@ -66,7 +68,6 @@
                     for (student in myObj) {
                         array_students.push(myObj[student]);
                     }
-                    callback(array_students);
                 }
 
             }
@@ -75,23 +76,47 @@
         } // end function tableStudenten
 
 
-        tableFouten((x)=>{
-            for (i = 0;i<x.length;i++){
-                console.log(x[i].vak_naam);
+        function callbackFouten(x){
+            let table = 
+            '<table id="puntentabel">'+
+            '<button onclick="addCol()" id="addcol">add column</button>'+
+            '<button onclick="remCol()" id="remcol">remove column</button>'+
+            '<thead>'+
+            '<td id="cornerLU">'+
+            '<div class="custom-select">'+
+            '<select id="rounded">'+
+            '<option value="0">Select Course</option>';
+            for (i=0;i<array_vakken.length;i++){
+                table += '<option value="'+ (i + 1) +'">'+ array_vakken[i].vak_naam +'</option>';
             }
-        });
+            table += 
+                    '</select>'+
+                    '</div>'+
+                    '</td>';
+            for (i=0;i<array_fouten.length;i++){
+                table += '<td class="fouten"><div class="rotate"><p>'+ array_fouten[i].fou_omschrijving +'</p></div></td>';
+            }
+            table += 
+                    '<td id="result">Result</td>'+
+                    '</thead>';
+            for (i=0;i<array_students.length;i++){
+                table += 
+                    '<tr class="student"><td>'+ array_students[i].stu_voornaam +' '+ array_students[i].stu_naam +'</td>';
+                for (ii = 0;ii<array_fouten.length; ii++){
+                    table += '<td><input type="checkbox" name="'+ array_fouten[ii].fou_omschrijving +'"></td>';
+                }
+                table += '<td></td></tr>';
+            }
+            table += '</table>';
 
-        tableVakken((x)=>{
-            for (i = 0;i<x.length;i++){
-                console.log(x[i].fou_omschrijving);
-            }
-        });
 
-        tableStudenten((x)=>{
-            for (i = 0;i<x.length;i++){
-                console.log(x[i].fou_omschrijving);
-            }
-        });
+            document.getElementById("test").innerHTML = table;
+        };
+
+
+        tableStudenten();
+        tableVakken();
+        tableFouten(callbackFouten);
 
         
 
@@ -126,7 +151,6 @@
                 fout = prompt("Voeg een fout toe: ");
                 var newElement = document.createElement("p");
                 newElement.setAttribute("class", "rotate");
-                // newElement.style("background","rgb(7, 77, 33)");
                 var foutTxt = document.createTextNode(fout);
                 newElement.appendChild(foutTxt);
                 cell.setAttribute("class", "fouten");
@@ -136,6 +160,8 @@
                 newElement.setAttribute("name", fout);
             }
             cell.insertBefore(newElement, cell.childNodes[0]);
+            // let sql = "INSERT INTO fouten SET fou_omschrijving = '"+ text +"' , fou_minpunten = 1;"
+            // $.get("/sql", (req,res)=>{res.send([text])});
         }
         
         
