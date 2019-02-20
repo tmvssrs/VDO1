@@ -11,13 +11,13 @@
     <body>
         
         <div class="container">
-        <table id="puntentabel">
+        <!-- <table id="puntentabel">
             <thead>
                 <td id="cornerLU">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                     Add mistake</button>
-                <!-- <div class="custom-select"> -->
-                        <select id="rounded" class="custom-select">
+                <div class="custom-select">
+                       <select id="rounded" class="custom-select">
                         <option value="0">Select Course</option>
                         <option value="1">HTML/CSS</option>
                         <option value="2">Javascript</option>
@@ -26,9 +26,9 @@
                         <option value="5">Agile</option>
                         <option value="6">MySQL</option>
                         <option value="7">Git</option>
-                    </select>
+                    </select> -->
                 <!-- </div> -->
-                </td>
+                <!-- </td>
                 <td class="fouten"><p class="rotate">Fout 1</p></td>
                 <td class="fouten"><p class="rotate">Fout 2</p></td>
                 <td class="fouten"><p class="rotate">Fout 3</p></td>
@@ -73,7 +73,7 @@
                 <td></td>
             </tr>
 
-        </table>
+        </table> -->
 
         <div id="demo"></div>
         </div>  
@@ -114,31 +114,32 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
 <script>
-const table = "<table>"
+const table = "<table id='puntentabel'>"
 const endtable = "</table>";
 const thead = "<thead>";
 const endthead = "</thead>";
 const tr = "<tr class= 'student'>";
-const endtr = "</tr>";
 const td = "<td>";
+const tdmistake = "<td class='fouten'>";
 const endtd = "</td>";
 const tdoption ="<td id='cornerLU'>";
+const protate = "<p class='rotate'>";
 let txt = table;
-let xhttp;
-xhttp = new XMLHttpRequest();
+// let xhttp;
+
 
 function displayStudentsColumn(){
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-        // let txt = table;    
         if (this.readyState == 4 && this.status == 200) {
             let arr1 = JSON.parse(this.responseText);
             // console.log(arr1);
-            //let myObj = JSON.parse(arr1);
                 for (x in arr1) {
                     txt += tr;
-                    txt += td + arr1[x].stu_voornaam + endtd;
+                    txt += td + arr1[x].stu_voornaam + ' ' + arr1[x].stu_naam + endtd;
+                    txt += '</tr>';
                 }
-                txt += endtr
+                
             document.getElementById("demo").innerHTML = txt;
         }
     }
@@ -147,18 +148,18 @@ function displayStudentsColumn(){
 }
 
 function displayMistakesColumns(){
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-    // let txt = table;
     if (this.readyState == 4 && this.status == 200) {
         let arr1 = JSON.parse(this.responseText);
         // console.log(arr1);
-        //let myObj = JSON.parse(arr1);
+        // txt += thead;
+        // txt += tr;
             for (x in arr1) {
-                txt += thead;
-                txt += td + arr1[x].fou_omschrijving + endtd;
-                txt += endthead
+                txt += tdmistake + protate + arr1[x].fou_omschrijving + '</p>' + endtd;
             }
-        txt += endtable
+        // txt += '</tr>';
+        // txt += endthead;
         document.getElementById("demo").innerHTML = txt;
         }
     }
@@ -167,22 +168,23 @@ function displayMistakesColumns(){
 }
 
 function displayDisciplineMenu(){
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-    // let txt = table;
         if (this.readyState == 4 && this.status == 200) {
             let arr1 = JSON.parse(this.responseText);
             // console.log(arr1);
-            //let myObj = JSON.parse(arr1);
             txt += thead;
+            txt += '<tr>';
             txt += tdoption;
             txt += '<select id="rounded" class="custom-select">';
+            txt += '<option value="0">Select Course</option>';
             for (x in arr1) {
-                 txt += "<option>" + arr1[x].vak_naam + "</option>";
+                txt += "<option>" + arr1[x].vak_naam + "</option>";
             }
-        txt += "</select>";
-        txt += endtd;
+            txt += "</select>";
+            txt += endtd;
+        txt += "</tr>";
         txt += endthead;
-        txt += endtable;
         document.getElementById("demo").innerHTML = txt;
         }
     }
@@ -190,9 +192,11 @@ function displayDisciplineMenu(){
     xhttp.send();
 }
 
+displayDisciplineMenu();
+displayMistakesColumns();
 displayStudentsColumn();
-// displayDisciplineMenu();
-// displayMistakesColumns();
+
+
 
 
 
