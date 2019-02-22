@@ -130,11 +130,27 @@
                     if (nrCells > 2){
                         for (i=0; i<tbl.rows.length;i++){
                             // alert(nrCells);
-                            tbl.rows[i].deleteCell(nrCells -2);
+                            // tbl.rows[i].deleteCell(nrCells -2);
                         }
                     } else{
                         alert("Deze kolommen moeten blijven staan!")
                     }
+                    let myobj = { remove: "true" };
+                    let myjson = JSON.stringify(myobj);
+                    $.ajax({
+                    url: "/sql",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: myjson,
+                    success: (result, status)=>{
+                        console.dir("result: " + result + " status: " + status)
+                    },
+                    error: (error)=>{
+                        let test = JSON.stringify(error);
+                        console.dir("error: " + test);
+                        // callData();
+                    } 
+                })
                     
             };
         

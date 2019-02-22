@@ -76,29 +76,55 @@ function getDatabase(){
 getDatabase();
 
 
+
  var urlencodedParser = bodyParser.urlencoded({ extended: false });
  APP.post("/sql",urlencodedParser, (req, res) => { 
 	if (req.method === 'POST') {
 		// console.log(req.body) ;
 		let result = req.body;
 		// console.log(Object.keys(result));
-		for (let key in result){
-			let txt = JSON.parse(key)["foutnaam"];
-			con2.connect(function(err) {
-				res.end("test");
-				if (err) throw err;
-				console.log("Connected!");
-				var sql = "INSERT INTO fouten (fou_omschrijving, fou_minpunten) VALUES ( '"+txt+"', '1')";
-				console.log(sql);
-				con2.query(sql, function (err, result) {
-				  if (err) throw err;
-				  else{
-					let test = JSON.stringify(result);
-					console.dir("1 record inserted" + test);
-					getDatabase();
-				  }
-				});
-			  });
+		for (let key  in result){
+			let txt = JSON.parse(key);
+			for (let x in txt){
+				if (x == "foutnaam"){
+					txt = txt.foutnaam;
+					console.log(txt);
+					con2.connect(function(err) {
+						res.end();
+						if (err) throw err;
+						console.log("Connected!");
+						var sql = "INSERT INTO fouten (fou_omschrijving, fou_minpunten) VALUES ( '"+txt+"', '1')";
+						console.log(sql);
+						con2.query(sql, function (err, result) {
+							  if (err) throw err;
+							  else{
+							let test = JSON.stringify(result);
+							console.dir("1 record inserted" + test);
+							getDatabase();
+							// con2.close()
+							  }
+						});
+					});
+				}
+				else if (x == "remove"){
+					con2.connect(function(err) {
+						res.end();
+						if (err) throw err;
+						console.log("Connected!");
+						var sql = "DELETE FROM fouten ORDER BY fou_id desc limit 1";
+						console.log(sql);
+						con2.query(sql, function (err, result) {
+							  if (err) throw err;
+							  else{
+							let test = JSON.stringify(result);
+							console.dir("1 record deleted" + test);
+							getDatabase();
+							  }
+						});
+					});
+				}
+			}
+			
 
 		}
 	}
