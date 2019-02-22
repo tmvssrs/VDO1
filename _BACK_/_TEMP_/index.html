@@ -25,7 +25,7 @@
         let array_fouten = Array();
         let array_students = Array();
 
-        function tableVakken(callback){
+        function tableVakken(){
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -58,7 +58,7 @@
             xhttp.send();
         } // end function tableFouten
 
-        function tableStudenten(callback){
+        function tableStudenten(){
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
@@ -113,11 +113,13 @@
             document.getElementById("test").innerHTML = table;
         };
 
-
+    function callData(){
+        // console.log("data call");
         tableStudenten();
         tableVakken();
         tableFouten(callbackFouten);
-
+    }
+    callData();
         
 
             function remCol(){
@@ -141,14 +143,34 @@
                 var tbl = document.getElementById('puntentabel'), // table reference
                     i;
                 // open loop for each row and append cell
+                var fout = prompt("Voeg een fout toe: ");
                 for (i = 0; i < tbl.rows.length; i++) {
-                    createCell(tbl.rows[i].insertCell(tbl.rows[i].cells.length-1), i);
+                    // createCell(tbl.rows[i].insertCell(tbl.rows[i].cells.length-1), i, fout);
                 }
-            }
+                let myobj = { foutnaam: fout };
+                let myjson = JSON.stringify(myobj);
+                // console.log(myjson);
+                // $.post("/sql", myjson, function(data, status){
+                //     alert("data: " + data + "\nStatus: " + status);
+                // });
+                $.ajax({
+                    url: "/sql",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: myjson,
+                    success: (result, status)=>{
+                        console.dir("result: " + result + " status: " + status)
+                    },
+                    error: (error)=>{
+                        let test = JSON.stringify(error);
+                        console.dir("error: " + test);
+                        // callData();
+                    } 
+                })
+            } // end function add col
             // create DIV element and append to the table cell
-        function createCell(cell, text) {
+        function createCell(cell, text, fout) {
             if (text == 0){
-                fout = prompt("Voeg een fout toe: ");
                 var newElement = document.createElement("p");
                 newElement.setAttribute("class", "rotate");
                 var foutTxt = document.createTextNode(fout);
@@ -161,8 +183,14 @@
             }
             cell.insertBefore(newElement, cell.childNodes[0]);
             // let sql = "INSERT INTO fouten SET fou_omschrijving = '"+ text +"' , fou_minpunten = 1;"
-            // $.get("/sql", (req,res)=>{res.send([text])});
-        }
+            // $.get("/sql/x=blabla", (res)=>{console.log(res)});
+            // $.post("/sql",{data:text}, (res)=>{console.log(res)});
+            // xhttp.open("POST", "ajax_test.asp", true);
+            // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // xhttp.send("fname=Henry&lname=Ford");
+            // console.log("text" + fout);
+            
+        } // end function create cell
         
         
         

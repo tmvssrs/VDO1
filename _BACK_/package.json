@@ -4,6 +4,7 @@
   "description": "node back-end",
   "main": "server.js",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "jQuery": "^1.7.4",
     "jquery": "^3.3.1",

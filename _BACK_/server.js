@@ -1,6 +1,7 @@
 const X = require('express');
 const APP = X();
 const PORT = 1777;
+let bodyParser = require('body-parser')
 // let $ = require("jQuery");
 // const PORT2 = 9999;
 // const CORS = require('cors');
@@ -34,15 +35,23 @@ APP.listen(PORT, () => {
 //   );
 // })
 
-let output;
 const mysql = require('mysql');
- let con = mysql.createConnection({
- 	host: "localhost",
- 	user: "root",
- 	password: "mysql",
- 	database: "grade_rating"
- });
- con.connect(function (err) {
+
+let con2 = mysql.createConnection({
+	host: "localhost",
+	user: "root",
+	password: "mysql",
+	database: "grade_rating"
+});
+
+function getDatabase(){
+	let con = mysql.createConnection({
+		host: "localhost",
+		user: "root",
+		password: "mysql",
+		database: "grade_rating"
+	});
+ 	con.connect(function (err) {
  	if (err) throw err;
  	// con.query("select stu_voornaam, stu_naam, vak_naam, fou_minpunten from studenten s inner join stu_vak_fou stf on s.stu_id = stf.fk_stu_id inner join fouten f on stf.fk_fou_id = f.fou_id inner join vakken v on stf.fk_vak_id = v.vak_id group by stu_voornaam, stu_naam, vak_naam order by stu_naam;",  (err, result, fields) =>{
 		con.query("select * from studenten",  (err, result, fields) =>{
@@ -62,6 +71,40 @@ const mysql = require('mysql');
  APP.get("/students", (req,res)=>{res.send([outputstudenten])});
  APP.get("/fouten", (req,res)=>{res.send([outputfouten])});
  APP.get("/vakken", (req,res)=>{res.send([outputvakken])});
+}
+
+getDatabase();
+
+
+ var urlencodedParser = bodyParser.urlencoded({ extended: false });
+ APP.post("/sql",urlencodedParser, (req, res) => { 
+	if (req.method === 'POST') {
+		// console.log(req.body) ;
+		let result = req.body;
+		// console.log(Object.keys(result));
+		for (let key in result){
+			let txt = JSON.parse(key)["foutnaam"];
+			con2.connect(function(err) {
+				res.end("test");
+				if (err) throw err;
+				console.log("Connected!");
+				var sql = "INSERT INTO fouten (fou_omschrijving, fou_minpunten) VALUES ( '"+txt+"', '1')";
+				console.log(sql);
+				con2.query(sql, function (err, result) {
+				  if (err) throw err;
+				  else{
+					let test = JSON.stringify(result);
+					console.dir("1 record inserted" + test);
+					getDatabase();
+				  }
+				});
+			  });
+
+		}
+	}
+});
+
+
 
 //APP.get('/index', (req,res) => {res.send(output)});
 // APP.get('/vakken', (req,res) => {res.send(["HTML","CSS"])});
