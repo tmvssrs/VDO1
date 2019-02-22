@@ -76,6 +76,8 @@ table thead td#cornerLU{
 }
     
 /* --------- KLEUR fouten -------- */
+td { text-align: center; }
+
 table,
 th,
 td {
@@ -87,17 +89,14 @@ td {
     padding: 10px 0;
 }
 
-p{
-    color: rgb(7, 77, 33);
-}
-
 #result{
     background: #dce7df;
     font-weight: bold;
     /* box-shadow: inset 0px 0px 20px 0px rgba(23, 83, 46, 0.3); */
 }
 
-p{
+p {
+    color: rgb(7, 77, 33);
     font-weight: bold;
 }
 
