@@ -11,99 +11,8 @@
     <body>
         
         <div class="container">
-        <!-- <table id="puntentabel">
-            <thead>
-                <td id="cornerLU">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Add mistake</button>
-                <div class="custom-select">
-                       <select id="rounded" class="custom-select">
-                        <option value="0">Select Course</option>
-                        <option value="1">HTML/CSS</option>
-                        <option value="2">Javascript</option>
-                        <option value="3">PHP</option>
-                        <option value="4">Angular</option>
-                        <option value="5">Agile</option>
-                        <option value="6">MySQL</option>
-                        <option value="7">Git</option>
-                    </select> -->
-                <!-- </div> -->
-                <!-- </td>
-                <td class="fouten"><p class="rotate">Fout 1</p></td>
-                <td class="fouten"><p class="rotate">Fout 2</p></td>
-                <td class="fouten"><p class="rotate">Fout 3</p></td>
-                <td class="fouten"><p class="rotate">Fout 4</p></td>
-                <td class="fouten"><p class="rotate">Fout 5</p></td>
-                <td id="result">Result</td>
-            </thead>
-            <tr class="student">
-                <td>Student 1</td>
-                <td><input type="checkbox" name="fout1"></td>
-                <td><input type="checkbox" name="fout2"></td>
-                <td><input type="checkbox" name="fout3"></td>
-                <td><input type="checkbox" name="fout4"></td>
-                <td><input type="checkbox" name="fout5"></td>
-                <td></td>
-            </tr>
-            <tr class="student">
-                <td>Student 2</td>
-                <td><input type="checkbox" name="fout1"></td>
-                <td><input type="checkbox" name="fout2"></td>
-                <td><input type="checkbox" name="fout3"></td>
-                <td><input type="checkbox" name="fout4"></td>
-                <td><input type="checkbox" name="fout5"></td>
-                <td></td>
-            </tr>
-            <tr class="student">
-                <td>Student 3</td>
-                <td><input type="checkbox" name="fout1"></td>
-                <td><input type="checkbox" name="fout2"></td>
-                <td><input type="checkbox" name="fout3"></td>
-                <td><input type="checkbox" name="fout4"></td>
-                <td><input type="checkbox" name="fout5"></td>
-                <td></td>
-            </tr>
-            <tr class="student">
-                <td>Student 4</td>
-                <td><input type="checkbox" name="fout1"></td>
-                <td><input type="checkbox" name="fout2"></td>
-                <td><input type="checkbox" name="fout3"></td>
-                <td><input type="checkbox" name="fout4"></td>
-                <td><input type="checkbox" name="fout5"></td>
-                <td></td>
-            </tr>
-
-        </table> -->
-
-        <div id="demo"></div>
+            <div id="demo"></div>
         </div>  
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Mistakes for everyone</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="main_contact_form" action="localhost:7777/student">
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Add a new mistake</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Some mistake">
-                            </div>
-                            <button type="submit" id="add" class="btn btn-primary" data-dismiss="modal">Add mistake</button>
-                            <p id="success_fail_info"></p>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    
-    
-    
     
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
@@ -114,91 +23,84 @@
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
 <script>
-const table = "<table id='puntentabel'>"
-const endtable = "</table>";
-const thead = "<thead>";
-const endthead = "</thead>";
-const tr = "<tr class= 'student'>";
-const td = "<td>";
-const tdmistake = "<td class='fouten'>";
-const endtd = "</td>";
-const tdoption ="<td id='cornerLU'>";
-const protate = "<p class='rotate'>";
-let txt = table;
-// let xhttp;
 
+// let xhttp;
 
 function displayStudentsColumn(){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             let arr1 = JSON.parse(this.responseText);
-            // console.log(arr1);
-                for (x in arr1) {
-                    txt += tr;
-                    txt += td + arr1[x].stu_voornaam + ' ' + arr1[x].stu_naam + endtd;
-                    txt += '</tr>';
-                }
-                
-            document.getElementById("demo").innerHTML = txt;
+            console.log(arr1);
+            return arr1;
         }
     }
     xhttp.open("GET","http://localhost:7777/students", true);
     xhttp.send();
 }
+displayStudentsColumn();
 
-function displayMistakesColumns(){
+function displayMistakes(){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        let arr1 = JSON.parse(this.responseText);
-        // console.log(arr1);
-        // txt += thead;
-        // txt += tr;
-            for (x in arr1) {
-                txt += tdmistake + protate + arr1[x].fou_omschrijving + '</p>' + endtd;
-            }
-        // txt += '</tr>';
-        // txt += endthead;
-        document.getElementById("demo").innerHTML = txt;
+        if (this.readyState == 4 && this.status == 200) {
+            let arr2 = JSON.parse(this.responseText);
+            console.log(arr2);
+            return arr2;
         }
     }
     xhttp.open("GET","http://localhost:7777/mistakes", true);
     xhttp.send();
 }
+displayMistakes();
 
-function displayDisciplineMenu(){
+function displaySelect(){
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            let arr1 = JSON.parse(this.responseText);
-            // console.log(arr1);
-            txt += thead;
-            txt += '<tr>';
-            txt += tdoption;
-            txt += '<select id="rounded" class="custom-select">';
-            txt += '<option value="0">Select Course</option>';
-            for (x in arr1) {
-                txt += "<option>" + arr1[x].vak_naam + "</option>";
-            }
-            txt += "</select>";
-            txt += endtd;
-        txt += "</tr>";
-        txt += endthead;
-        document.getElementById("demo").innerHTML = txt;
+            let arr3 = JSON.parse(this.responseText);
+            console.log(arr3);
+            return arr3;
         }
     }
     xhttp.open("GET","http://localhost:7777/disciplines", true);
     xhttp.send();
 }
+displaySelect();
 
-displayDisciplineMenu();
-displayMistakesColumns();
-displayStudentsColumn();
+function createTable(arr1, arr2, arr3){
+    let table =
+        '<table id="puntentabel">' +
+            '<thead>' +
+                '<td id="cornerLU">' +
+                    '<button onclick="addCol()" id="addcol">add column</button>' +
+                    '<button onclick="remCol()" id="remcol">remove column</button>' +
+                    '<select id="rounded" class="custom-select">' +
+                        '<option value="0">Select Course</option>';
+                        for (x in arr3) {
+                            table += '<option>' + arr3[x].vak_naam + '</option>';
+                        }
+                        table += '</select>'+
+                        '</td>';
+                        for (x in arr2) {
+                            table += '<td class="fouten"><div class="rotate"><p>' + arr2[x].fou_omschrijving + '</p></div></td>';
+                        }
+                        table +='<td id="result">Result</td>'+
+                                '</thead>';
+                        for (x in arr1) {
+                            table += '<tr class="student"><td>' + arr1[x].stu_voornaam + ' ' + arr1[x].stu_naam + '</td>';
+                            for (y in arr2){
+                                table += '<td><input type="checkbox" name="' + arr2[y].fou_omschrijving + '"></td>';
+                            }
+                        table +='<td>'+
+                                '</td>'+
+                                '</tr>';
+                        }
+    table +='</table>';
+    document.getElementById("demo").innerHTML = table;
+}
 
-
-
-
+createTable();
 
     function remCol(){
         let tbl = document.getElementById("puntentabel"),

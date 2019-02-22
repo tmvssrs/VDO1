@@ -1,4 +1,6 @@
-/* css bij tabel */
+* {
+    box-sizing: border-box;
+}
 
 body {
     width: 1000px;
@@ -12,7 +14,7 @@ table {
 }
 
 table,
-th,
+thead,
 td {
     border: 1px solid #111;
     border-collapse: collapse;
@@ -23,18 +25,27 @@ tr.student td {
     padding: 1em;
 }
 
-tr.student td input[type=radio] {
-    margin: 0 auto;
-    width: 100%;
-}
 
 thead #result {
     padding: .5em 1em;
 }
 
-thead {
-    height: 100px;
-    white-space: nowrap;
+
+
+thead,
+thead tr {
+    height: fit-content;
+}
+
+thead tr td {
+    /* height: fit-content; */
+    position: relative;
+}
+
+
+
+thead tr td div p {
+    display: block;
 }
 
 table thead td#cornerLU {
@@ -43,7 +54,7 @@ table thead td#cornerLU {
 }
 
 .rotate {
-
+    /* transform-origin: bottom left; */
     /* Safari */
     -webkit-transform: rotate(-90deg);
 
@@ -58,8 +69,6 @@ table thead td#cornerLU {
 
     /* Internet Explorer */
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-
-    padding: 1em .5em;
 
 }
 
@@ -77,14 +86,17 @@ table thead td#cornerLU {
 
 /* --------- KLEUR fouten -------- */
 table,
-th,
+thead,
 td {
     border: 2px dotted #FFF;
 }
 
+
 .fouten {
     background: #dce7df;
-    padding: 10px 0;
+    padding: 0;
+    overflow: visible;
+    max-width: 50px;
 }
 
 p {
@@ -121,17 +133,15 @@ tr:nth-child(even) {
     background: none;
     padding-bottom: 0px;
     border-bottom: 2px dotted #FFF;
-    display: flex;
-    flex-wrap: wrap;
 }
 
-/* .custom-select select {
+.custom-select select {
     background: #dce7df;
-} */
+}
 
-/* select option {
+select option {
     background: white;
-} */
+}
 
 
 input[type="checkbox"i] {
